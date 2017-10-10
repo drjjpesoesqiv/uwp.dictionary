@@ -1,0 +1,74 @@
+﻿<Page
+    x:Class="InkWords.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:src="using:InkWords"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <RelativePanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <TextBlock
+            x:Name="TitleTextBlock"
+            Text="Dictionary"
+            Margin="10,10,0,0"
+            Style="{StaticResource TitleTextBlockStyle}"/>
+        
+        <RelativePanel x:Name="SearchGrid" RelativePanel.Below="TitleTextBlock">
+            <TextBox
+                x:Name="SearchText"
+                HorizontalAlignment="Left"
+                Margin="10,10,0,0" TextWrapping="Wrap"
+                VerticalAlignment="Top"
+                Width="200"
+                KeyDown="SearchTextBox_KeyDown"/>
+            <Button
+                x:Name="SearchButton"
+                Content="Search"
+                HorizontalAlignment="Left"
+                Margin="10,10,0,0"
+                RelativePanel.RightOf="SearchText"
+                Click="SearchButton_Click"
+                Style="{StaticResource AccentButtonStyle}"/>
+        </RelativePanel>
+        <RelativePanel
+            RelativePanel.Below="SearchGrid" 
+            RelativePanel.AlignLeftWithPanel="True"
+            RelativePanel.AlignRightWithPanel="True">
+            
+            <ListView
+                x:Name="DefListView"
+                Margin="10,10,0,0"
+                ItemsSource="{x:Bind definitions}"
+                SelectionMode="None"
+                RelativePanel.AlignLeftWithPanel="True"
+                RelativePanel.AlignRightWithPanel="True">
+
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="0,10,0,10">
+                            <TextBlock
+                                Text="{Binding PartOfSpeech}"
+                                TextAlignment="Left"
+                                TextWrapping="Wrap" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                            <TextBlock
+                                Text="{Binding Gloss}"
+                                TextAlignment="Left"
+                                TextWrapping="Wrap"/>
+                            <TextBlock
+                                Text="{Binding Words}"
+                                TextAlignment="Left"
+                                TextWrapping="Wrap" FontSize="12"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </RelativePanel>
+    </RelativePanel>
+</Page>
